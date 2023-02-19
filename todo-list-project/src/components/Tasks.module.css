@@ -1,0 +1,29 @@
+.cardTask {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 46rem;
+    height: 4.5rem;
+    background: var(--gray-500);
+    border-radius: 8px;
+    border: 1px solid var(--gray-400);
+    margin-top: 0.7rem;
+}
+
+.checkTask {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;    
+}
+
+.checkTask p {
+    padding-left: 1rem;
+    font-size: 0.875rem;
+    color: var(--gray-100);
+}
+
+.cardTask .trash {
+    color: var(--gray-300);
+    margin-right: 1rem;
+    cursor: pointer;
+}

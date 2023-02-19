@@ -1,0 +1,43 @@
+.myTasks {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4.5rem;
+}
+
+.lineInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 45rem;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.finishedTasks,
+.createdTasks {
+    display: flex;
+    align-items: center;
+}
+
+.finishedTasks p, 
+.createdTasks p {
+    background: var(--gray-400);
+    padding: .12rem .5rem;
+    border-radius: 8px;
+    margin-left: .5rem;
+    font-size: 0.75rem;
+}
+
+.finishedTasks strong {
+    color: var(--purple-dark);
+}
+
+.createdTasks strong {
+    color: var(--blue-dark);
+}
+
+areaTasks input[type="checkbox"] {
+    border: none;
+}
