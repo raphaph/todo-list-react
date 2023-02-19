@@ -23,7 +23,7 @@ const tasks = [
 
 export function Mytasks() {
     
-    const [countTask, setCountTask] = useState(tasks.length)    
+    const [countTask, setCountTask] = useState(tasks.length)  
     
     return (
         <div className={styles.myTasks}>
