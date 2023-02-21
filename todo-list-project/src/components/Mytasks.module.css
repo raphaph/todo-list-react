@@ -41,3 +41,45 @@
 areaTasks input[type="checkbox"] {
     border: none;
 }
+
+.newTask {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -27px;
+}
+
+.newTask input {
+    width: 39.8rem;
+    height: 3.4rem;
+    color: var(--grey-300);
+    background: var(--gray-500);
+    border: none;
+    padding-left: 1rem;
+    margin: 0 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--gray-700);
+}
+
+.buttonSubmit {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonSubmit .icon {
+    transform: translateY(3px);
+}
+
+.newTask button {
+    width: 5.6rem;
+    height: 3.25rem;
+    color: var(--gray-100);
+    background: var(--blue-dark);
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.newTask button:hover {
+    opacity: 0.8;
+}

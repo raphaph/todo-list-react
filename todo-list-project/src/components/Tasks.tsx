@@ -1,30 +1,27 @@
 import { Trash } from 'phosphor-react';
-import { useState } from 'react'
-import { Checkbox } from './Checkbox'
 import styles from './Tasks.module.css'
 
-interface taskProps {
-    key: number;
-    id: number;
+interface taskOnly {
     text: string;
-    isFinished: boolean;
-}
+    onDeleteTask: (task: string) => void;
+} 
 
+export function Tasks({ text, onDeleteTask }: taskOnly) {
 
-
-export function Tasks({ text, isFinished }: taskProps ) {    
-    
-    function deleteItem() {
-        console.log('delete')
+    function handleDeleteTask() {
+        onDeleteTask(text);
     }
 
     return (
         <div className={styles.cardTask}>
             <div className={styles.checkTask}>
-                <Checkbox />
-                <p>{text}</p>
+                <label className={styles.container}>
+                    <input id="inputCheckbox" title="checkbox" type="checkbox"></input>
+                    <div className={styles.checkmark}></div>
+                </label>
+                <p className={styles.taskText}>{text}</p>
             </div>
-            <Trash size={19} checked={isFinished} className={styles.trash} onClick={deleteItem}/>
+            <button title="trashButton" onClick={handleDeleteTask}><Trash size={19} className={styles.trash}/></button>
         </div>
     )
 }
