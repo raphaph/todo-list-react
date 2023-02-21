@@ -5,13 +5,17 @@ import styles from './Tasks.module.css'
 interface taskOnly {
     id: string;
     text: string;
+    isChecked: boolean;
     onDeleteTask: (task: string) => void;
+    onChecked: (box: boolean) => void;
+    onDeleteAndSubtract: Function;
 } 
 
-export function Tasks({ id, text, onDeleteTask }: taskOnly) {
+export function Tasks({ id, text, onDeleteTask, onChecked, onDeleteAndSubtract }: taskOnly) {
 
     function handleDeleteTask() {
-        onDeleteTask(text);
+        onDeleteTask(id);
+        onDeleteAndSubtract(isChecked)
     }
     
     const [isChecked, setIsChecked] = useState(false);
@@ -23,6 +27,7 @@ export function Tasks({ id, text, onDeleteTask }: taskOnly) {
             setIsChecked(false)
         }
         console.log(isChecked ? 'Task finished' : 'Task unchecked')
+        onChecked(!isChecked);
     }
 
     return (

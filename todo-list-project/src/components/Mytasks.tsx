@@ -1,14 +1,23 @@
 import { ChangeEvent, FormEvent, useState, useEffect } from 'react'
 import styles from './Mytasks.module.css'
 import { Tasks } from './Tasks'
-import { PlusCircle } from 'phosphor-react';
+import { Check, PlusCircle } from 'phosphor-react';
 import nextId from "react-id-generator";
 
-export function Mytasks() {
 
-    const [tasks, setNewTask] = useState(['Adicione uma tarefa', 'Remova uma tarefa', 'Remova todas as tarefas', 'De check em uma tarefa']);
+
+export function Mytasks() {
+    const [isCheckedState, setIsChecked] = useState(false);
+    const [tasks, setNewTask] = useState([
+        {
+            id: "id0",
+            text: "Adicione uma tarefa",
+            isChecked: isCheckedState,
+        }
+    ]);
     const [countTask, setCountTask] = useState(tasks.length)
     const [textTask, setNewTextTask] = useState('');
+    const [countCheckedState, setCountCheckedState] = useState(0)
 
     function onChangeTextTask(event: ChangeEvent<HTMLInputElement>) {
         setNewTextTask(event.target.value);
@@ -16,20 +25,47 @@ export function Mytasks() {
 
     function createNewTask(event: FormEvent) {
         event.preventDefault();
-        setNewTask([...tasks, textTask])
+        const newId = nextId()       
+        setNewTask([...tasks, 
+            {
+                "id": newId,
+                "text": textTask,
+                "isChecked": isCheckedState,
+            }
+        ])
         setCountTask(countTask + 1);
-        console.log('Task created')
+        console.log(`Task created with id: ${newId}`)
     }
 
-    function deleteTask(taskToDelete: string) {
+    function deleteTask(id: string) {
         const tasksWithoutDeleted = tasks.filter(task => {
-            return task !== taskToDelete;
+            return task.id !== id;
         })
         setNewTask(tasksWithoutDeleted)
         setCountTask(countTask - 1);
         console.log('Task deteled')
     }
 
+    function countChecked(isChecked: boolean) {
+        
+        if (countCheckedState >= 0) {
+            if (isChecked) {
+                setCountCheckedState(countCheckedState + 1)
+            } else if (!isChecked) {
+                setCountCheckedState(countCheckedState - 1)
+            }
+        } 
+        
+    }
+
+    function deleteAndSubtract(isChecked: boolean) {
+        if (isChecked || !isChecked) {
+            if (countCheckedState > 0 && isChecked)
+                setCountCheckedState(countCheckedState - 1)
+        }
+    }
+
+    
     function noTasks() {
         if (tasks.length == 0) {
             return (
@@ -61,18 +97,20 @@ export function Mytasks() {
                     </div>
                     <div className={styles.finishedTasks}>
                         <strong>Concluídas</strong>
-                        <p>0 de {countTask}</p>
+                        <p>{countCheckedState} de {countTask}</p>
                     </div>
                 </div>
                 <div className={styles.areaTasks}>
                     {tasks.map(task => {
-                        const id = nextId()
                         return (
                             <Tasks
-                                id={id}
-                                key={id}
-                                text={task}
+                                id={task.id}
+                                key={task.id}
+                                text={task.text}
+                                isChecked={task.isChecked}
                                 onDeleteTask={deleteTask}
+                                onChecked={countChecked}
+                                onDeleteAndSubtract={deleteAndSubtract}
                             />
                         )
                     })}
