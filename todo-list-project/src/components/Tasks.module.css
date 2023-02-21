@@ -4,7 +4,6 @@
     align-items: center;
     width: 46rem;
     height: 4.5rem;
-    background: var(--gray-500);
     border-radius: 8px;
     border: 1px solid var(--gray-400);
     margin-top: 0.7rem;
@@ -19,24 +18,25 @@
 .cardTask > button {
     background: transparent;
     border: none;
+    height: 1.1rem;
+    width: 1.1rem;
+    margin-right: 1rem;
+    cursor: pointer;
 }
 
-.checkTask p {
+.checkTask > p {
     padding-left: 1rem;
     font-size: 0.875rem;
-    color: var(--gray-100);
+    color: var(--gray-200);
 }
 
 .cardTask .trash {
     color: var(--gray-300);
-    margin-right: 1rem;
-    cursor: pointer;
 }
 
 .cardTask .trash:hover {
     color: red;
 }
-
 
 
 /* Checkbox */
@@ -98,3 +98,12 @@
     transform: rotate(45deg);
 }
 
+.checkedText {
+    color: var(--gray-300) !important;
+    text-decoration: line-through;
+  }
+  
+.uncheckedText {
+    text-decoration: none;
+    color: var(--gray-300);
+  }

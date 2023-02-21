@@ -17,7 +17,7 @@
 
 :focus {
     outline: transparent;
-    box-shadow: 0 0 0px 1px var(--gray-600);
+    box-shadow: 0 0 0px 1px var(--blue);
 }
 
 * {

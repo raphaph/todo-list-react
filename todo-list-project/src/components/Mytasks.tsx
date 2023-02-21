@@ -2,15 +2,13 @@ import { ChangeEvent, FormEvent, useState, useEffect } from 'react'
 import styles from './Mytasks.module.css'
 import { Tasks } from './Tasks'
 import { PlusCircle } from 'phosphor-react';
-
+import nextId from "react-id-generator";
 
 export function Mytasks() {
-    
-    const [tasks, setNewTask] = useState([]); 
+
+    const [tasks, setNewTask] = useState(['Adicione uma tarefa', 'Remova uma tarefa', 'Remova todas as tarefas', 'De check em uma tarefa']);
     const [countTask, setCountTask] = useState(tasks.length)
     const [textTask, setNewTextTask] = useState('');
-    const [countChecked, setCountChecked] = useState(0)
-    
 
     function onChangeTextTask(event: ChangeEvent<HTMLInputElement>) {
         setNewTextTask(event.target.value);
@@ -31,41 +29,59 @@ export function Mytasks() {
         setCountTask(countTask - 1);
         console.log('Task deteled')
     }
-    
+
+    function noTasks() {
+        if (tasks.length == 0) {
+            return (
+                <div className={styles.noTasks}>
+                    <img src="src\assets\clipboard.png" alt="" />
+                    <strong>Você ainda não tem tarefas cadastradas</strong>
+                    <p>Crie tarefas e organize seus itens a fazer</p>
+                </div>
+            )
+        }
+    }
 
     return (
         <>
-        <div className={styles.newTask}>
-            <input type="text" placeholder="Adicione uma nova tarefa" onChange={onChangeTextTask}></input>
-            <div className={styles.buttonSubmit}>
-                <button type="submit" onClick={createNewTask}>Criar <PlusCircle size={16} className={styles.icon}/></button>
-            </div>
-        </div>
-        <div className={styles.myTasks}>
-            <div className={styles.lineInfo}>
-                <div className={styles.createdTasks}>
-                <strong>Tarefas criadas</strong>
-                <p>{countTask}</p>
+            <form
+                onSubmit={createNewTask}>
+                <div className={styles.newTask}>
+                    <input type="text" placeholder="Adicione uma nova tarefa" onChange={onChangeTextTask} required></input>
+                    <div className={styles.buttonSubmit}>
+                        <button type="submit">Criar <PlusCircle size={16} className={styles.icon} /></button>
+                    </div>
                 </div>
-                <div className={styles.finishedTasks}>
-                    <strong>Concluídas</strong>
-                    <p>0 de {countTask}</p>
+            </form>
+            <div className={styles.myTasks}>
+                <div className={styles.lineInfo}>
+                    <div className={styles.createdTasks}>
+                        <strong>Tarefas criadas</strong>
+                        <p>{countTask}</p>
+                    </div>
+                    <div className={styles.finishedTasks}>
+                        <strong>Concluídas</strong>
+                        <p>0 de {countTask}</p>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.areaTasks}>
-                {tasks.map(task => {
-                    return (
-                        <Tasks 
-                        key={task}
-                        text={task}
-                        onDeleteTask={deleteTask}
-                        />
+                <div className={styles.areaTasks}>
+                    {tasks.map(task => {
+                        const id = nextId()
+                        return (
+                            <Tasks
+                                id={id}
+                                key={id}
+                                text={task}
+                                onDeleteTask={deleteTask}
+                            />
+                        )
+                    })}
 
-                    )    
-                })}
+                </div>
+
             </div>
-        </div>
+            {noTasks()}
         </>
-        
+
     )
 }
